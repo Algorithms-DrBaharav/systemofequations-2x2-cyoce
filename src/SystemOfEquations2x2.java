@@ -40,9 +40,24 @@ public class SystemOfEquations2x2 {
      */
     public double[] Solve2x2(){
         
-        // Your code here
-        
-        return null;
+        double[][] bigB = new double[2][3];
+        double scale = bigA[1][0] / bigA[0][0];
+        for(int i = 0; i < 3; i++){
+            bigB[0][i] = bigA[0][i] * scale;
+        }
+        bigB[1] = bigA[1].clone();
+        double[] subtracted = bigA[1].clone();
+        for(int i = 0; i < 3; i++){
+            subtracted[i] -= bigB[0][i];
+        }
+        double[] solution = new double[2];
+        solution[1] = subtracted[2] / subtracted[1];
+        solution[0] = (bigA[0][2] - bigA[0][1] * solution[1]) / bigA[0][0];
+        System.out.print(solution[0]);
+        System.out.print(" ");
+        System.out.println(solution[1]);
+        if(Double.isNaN(solution[0]) || Double.isNaN(solution[1])) return null;
+        return solution;
     }
     
 }
